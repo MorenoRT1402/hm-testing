@@ -1,17 +1,20 @@
+const { rateToNumberCents } = require("../utils/stringFormatter");
+const Booking = require("./booking");
+
 class Room {
 
     /**
      * Constructor.
      * @param {string} name - room name.
-     * @param {Array<Object>} bookings - bookings list for room.
+     * @param {Array<Booking>} bookings - bookings list for room.
      * @param {number} rate - Standard price per night (in cents).
      * @param {number} discount - discount (in percent).
      */
     constructor(name, bookings, rate, discount) {
         this.name = name;
         this.bookings = bookings;
-        this.rate = rate;
-        this.discount = discount;
+        this.rate = Number.parseInt(rate);
+        this.discount = Number.parseInt(discount);
     }
 
     /**
@@ -20,7 +23,7 @@ class Room {
      * @returns {boolean} `true` if room occupied, else `false`.
      */
     isOccupied(date) {
-        return false;
+        return this.bookings.some(booking => booking.isOccupied(date));
     }
 
     /**
@@ -53,6 +56,12 @@ class Room {
      */
     static availableRooms(rooms, startDate, endDate) {
         return 0
+    }
+
+    static create = (data, bookings) => {
+        const rateInCents = rateToNumberCents(data.rate);
+        const bookingsToAdd = data.bookings.map(bookingID => Booking.create(bookingID, bookings));
+        return new Room(data.name, bookingsToAdd, Number.parseInt(rateInCents), data.discount);
     }
 }
 
