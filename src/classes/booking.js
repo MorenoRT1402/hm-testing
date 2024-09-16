@@ -1,3 +1,5 @@
+const { getFee } = require("../utils/percentages");
+
 class Booking {
 
     /**
@@ -24,6 +26,8 @@ class Booking {
      * @returns {number}
      */
     get fee(){
-        return 0;
+        return getFee(this.room.rate, this.room.discount, this.discount);
     }
 }
+
+module.exports = Booking;

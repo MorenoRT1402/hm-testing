@@ -4,14 +4,14 @@ const roomsData = require('./data/hm-testing_rooms.json');
 const bookingsData = require('./data/hm-testing_bookings.json');
 
 const createRoom = data => {
-    const rateInCents = parseFloat(data.rate.replace('$', '').replace('.', '')) * 100;
+    const rateInCents = (data.rate.replace('$', '') * 100).toFixed(0);
     return new Room(data.name, data.bookings, rateInCents, data.discount);
 }
 
 const rooms = roomsData.map(data => createRoom(data));
 
 const bookings = bookingsData.map(data => {
-    const newRoom = createRoom(data.room);
+    const newRoom = createRoom(data.room[0]);
     return new Booking(data.name, data.email, data.checkIn, data.checkOut, data.discount, newRoom);
 });
 
@@ -83,7 +83,7 @@ describe('Room Class Tests', () => {
 describe('Booking Class Tests', () => {
 
     describe('Method: getFee', () => {
-        expect(bookings[0].fee).toBeCloseTo(67.84);
-        expect(bookings[999].fee).toBeCloseTo(28.71);
+        expect(bookings[0].fee).toBeCloseTo(6784);
+        expect(bookings[999].fee).toBeCloseTo(2870);
     })
 })

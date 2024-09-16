@@ -55,3 +55,5 @@ class Room {
         return 0
     }
 }
+
+module.exports = Room;
