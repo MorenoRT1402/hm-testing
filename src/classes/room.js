@@ -4,7 +4,7 @@ class Room {
      * Constructor.
      * @param {string} name - room name.
      * @param {Array<Object>} bookings - bookings list for room.
-     * @param {number} rate - Standard price per night.
+     * @param {number} rate - Standard price per night (in cents).
      * @param {number} discount - discount (in percent).
      */
     constructor(name, bookings, rate, discount) {
