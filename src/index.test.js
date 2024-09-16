@@ -79,3 +79,11 @@ describe('Room Class Tests', () => {
   });
 
 });
+
+describe('Booking Class Tests', () => {
+
+    describe('Method: getFee', () => {
+        expect(bookings[0].fee).toBeCloseTo(67.84);
+        expect(bookings[999].fee).toBeCloseTo(28.71);
+    })
+})

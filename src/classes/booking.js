@@ -23,7 +23,7 @@ class Booking {
      * and booking
      * @returns {number}
      */
-    getFee(){
+    get fee(){
         return 0;
     }
 }
