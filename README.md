@@ -6,9 +6,9 @@ Este proyecto tiene como objetivo implementar y probar clases, funciones y compo
 
 En este sprint, se realizan pruebas sobre:
 
-    Clases de lógica empresarial (Room y Booking): Estas clases gestionan habitaciones y reservas de hotel, con métodos para calcular ocupación y tarifas.
-    Componentes de React: Se testean con Jest y react-testing-library para garantizar su correcto comportamiento ante diferentes props y estados.
-    Pruebas end-to-end: Con Cypress, se verifican flujos completos, como el sistema de autenticación, asegurando que los usuarios vean el comportamiento esperado.
+ - **Clases de lógica empresarial (Room y Booking)**: Estas clases gestionan habitaciones y reservas de hotel, con métodos para calcular ocupación y tarifas.
+ - **Componentes de React**: Se testean con Jest y react-testing-library para garantizar su correcto comportamiento ante diferentes props y estados.
+ - **Pruebas end-to-end**: Con Cypress, se verifican flujos completos, como el sistema de autenticación, asegurando que los usuarios vean el comportamiento esperado.
 
 ## Tecnologías Utilizadas
 
@@ -21,10 +21,10 @@ En este sprint, se realizan pruebas sobre:
 
 Este proyecto sigue una metodología ágil con enfoque en test-driven development (TDD):
 
-    **Master Class inicial**: Introducción teórica y ejercicios prácticos.
-    __Escritura de tests primero__: Los tests unitarios y de integración se escriben antes de implementar las funcionalidades.
-    **Daily meetings**: Reuniones diarias para discutir el estado del proyecto y resolver bloqueos.
-    **Entrega semanal**: Se realizan entregas parciales a mitad de semana (miércoles) y una entrega final (viernes) con todas las correcciones implementadas.
+ - **Master Class inicial**: Introducción teórica y ejercicios prácticos.
+ - __Escritura de tests primero__: Los tests unitarios y de integración se escriben antes de implementar las funcionalidades.
+ - **Daily meetings**: Reuniones diarias para discutir el estado del proyecto y resolver bloqueos.
+ - **Entrega semanal**: Se realizan entregas parciales a mitad de semana (miércoles) y una entrega final (viernes) con todas las correcciones implementadas.
 
 ## Recursos Adicionales
 
@@ -32,5 +32,3 @@ Este proyecto sigue una metodología ágil con enfoque en test-driven developmen
 - [React Testing Library](https://testing-library.com/docs/react-testing-library/intro/)
 - [Cypress](https://docs.cypress.io/)
 - [Test-Driven Development (TDD)](https://www.freecodecamp.org/news/an-introduction-to-test-driven-development-cf0c57c13c9a/)
-
-
