@@ -1,4 +1,4 @@
-const { errorMessages } = require("../app/errors");
+const { errorMessages } = require("../app/validation");
 const { getFee } = require("../utils/percentages");
 const { rateToNumberCents } = require("../utils/stringFormatter");
 
@@ -44,7 +44,7 @@ class Booking {
         return getFee(this.room.rate, this.room.discount, this.discount);
     }
 
-    get occupiedDays(){
+    get occupiedDays() {
         this.datesValidation();
         return this.checkOut - this.checkIn;
     }

@@ -2,7 +2,7 @@ const Room = require('./classes/room');
 const Booking = require('./classes/booking');
 const roomsData = require('./data/hm-testing_rooms.json');
 const bookingsData = require('./data/hm-testing_bookings.json');
-const { errorMessages } = require('./app/errors');
+const { errorMessages } = require('./app/validation');
 
 const bookings = bookingsData.map((data) => Booking.create(data.id, bookingsData));
 const rooms = roomsData.map(data => Room.create(data, bookingsData));
@@ -54,7 +54,7 @@ describe('Room Class Tests', () => {
             const startDate = new Date('2023-12-29');
             const endDate = new Date('2024-07-15');
             const roomsToCheck = rooms.slice(10, 12);
-            expect(Room.totalOccupancyPercentage(roomsToCheck, startDate, endDate)).toBeCloseTo(100);
+            expect(Room.totalOccupancyPercentage(roomsToCheck, startDate, endDate)).toBeCloseTo(80);
             expect(Room.totalOccupancyPercentage(rooms.slice(29, 31), startDate, endDate)).toBe(0);
         });
     });

@@ -1,4 +1,4 @@
-const { errorMessages } = require("../app/errors");
+const { errorMessages, datesValidation } = require("../app/validation");
 const { rateToNumberCents } = require("../utils/stringFormatter");
 const Booking = require("./booking");
 
@@ -36,16 +36,16 @@ class Room {
     occupancyPercentage(start, end) {
         const startDate = new Date(start);
         const endDate = new Date(end);
-        if(this.bookings.length < 1) return 0;
-        if(startDate > endDate) throw new Error(errorMessages.startEndDatesRangeInvalid);
+        if (this.bookings.length < 1) return 0;
+        datesValidation(startDate, endDate);
 
         let occupiedDays = 0;
 
-        this.bookings.forEach(booking => {    
+        this.bookings.forEach(booking => {
             // Check if the reservation overlaps with the given date range. Max and min for smallest range
             const overlapStart = Math.max(booking.checkIn, startDate);
             const overlapEnd = Math.min(booking.checkOut, endDate);
-    
+
             // If the dates overlap, we calculate the busy days
             if (overlapStart <= overlapEnd) {
                 occupiedDays += Math.ceil(overlapEnd - overlapStart);
@@ -61,13 +61,26 @@ class Room {
     /**
      * Calculates the total occupancy percentage across all rooms for a given date range.
      * @param {Room[]} rooms - Array of room instances.
-     * @param {Date} startDate - The start date of the range.
-     * @param {Date} endDate - The end date of the range.
+     * @param {Date | string} start - The start date of the range.
+     * @param {Date | string} end - The end date of the range.
      * @returns {number} - The total occupancy percentage across all rooms.
      */
-    static totalOccupancyPercentage(rooms, startDate, endDate) {
-        return 0
+    static totalOccupancyPercentage(rooms, start, end) {
+        const startDate = new Date(start);
+        const endDate = new Date(end);
+        if (rooms.length === 0) return 0;
+        datesValidation(startDate, endDate);
+
+        let totalOccupancyPercentage = 0;
+
+        rooms.forEach(room => {
+            const occupancy = room.occupancyPercentage(startDate, endDate);
+            totalOccupancyPercentage += occupancy;
+        });
+
+        return totalOccupancyPercentage / rooms.length;
     }
+
 
     /**
      * Returns an array of rooms that are available for the entire date range.
@@ -82,9 +95,9 @@ class Room {
 
     static create = (data, bookingsData) => {
         const rateInCents = rateToNumberCents(data.rate);
-        
+
         const bookingsToAdd = data.bookings.map(bookingID => Booking.create(bookingID, bookingsData));
-    
+
         return new Room(
             data.name,
             bookingsToAdd,
@@ -92,7 +105,7 @@ class Room {
             data.discount
         );
     };
-    
+
 }
 
 module.exports = Room;
