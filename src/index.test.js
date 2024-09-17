@@ -65,7 +65,7 @@ describe('Room Class Tests', () => {
             const startDate = new Date('2023-12-29');
             const endDate = new Date('2024-07-15');
             expect(Room.availableRooms(rooms.slice(29, 32), startDate, endDate)).toEqual([rooms[29], rooms[30]]);
-            expect(Room.availableRooms(rooms[35], startDate, endDate)).toEqual([]); //Not available
+            expect(Room.availableRooms([rooms[35]], startDate, endDate)).toEqual([]); //Not available
         });
     });
 

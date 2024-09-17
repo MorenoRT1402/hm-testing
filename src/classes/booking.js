@@ -79,32 +79,6 @@ class Booking {
             createRoomJson(booking.room[0]) // Verifica que el room también esté bien inicializado
         );
     };
-
-
-
-    // static getBookingMap(data) {
-    //     const bookingsMap = data.reduce((map, booking) => {
-    //         const newBooking = new Booking(
-    //             booking.name,
-    //             booking.email,
-    //             new Date(booking.checkIn),
-    //             new Date(booking.checkOut),
-    //             Number.parseInt(booking.discount),
-    //             createRoomJson(booking.room[0])
-    //         );
-
-    //         map[booking.id] = newBooking;
-
-    //         return map;
-    //     }, {});  
-
-    //     return bookingsMap;
-    // }
-
-    // static create = (id, bookingsData) => {
-    //     const map = Booking.getBookingMap(bookingsData);
-    //     return map[id];
-    // }
 }
 
 module.exports = Booking;

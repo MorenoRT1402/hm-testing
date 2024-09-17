@@ -81,6 +81,9 @@ class Room {
         return totalOccupancyPercentage / rooms.length;
     }
 
+    isAvailable(startDate, endDate){
+        return this.occupancyPercentage(startDate, endDate) === 0;
+    }
 
     /**
      * Returns an array of rooms that are available for the entire date range.
@@ -90,8 +93,11 @@ class Room {
      * @returns {Room[]} - Array of rooms that are available during the entire date range.
      */
     static availableRooms(rooms, startDate, endDate) {
-        return 0
+        datesValidation(startDate, endDate);
+        const availableRooms = rooms.filter(room => room.isAvailable(startDate, endDate));
+        return availableRooms;
     }
+
 
     static create = (data, bookingsData) => {
         const rateInCents = rateToNumberCents(data.rate);
