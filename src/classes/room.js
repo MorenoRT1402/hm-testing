@@ -11,9 +11,9 @@ class Room {
      * @param {number} rate - Standard price per night (in cents).
      * @param {number} discount - discount (in percent).
      */
-    constructor(name, bookings, rate, discount) {
+    constructor(name = 'room', bookings = [], rate = 200, discount = 25) {
         this.name = name;
-        this.bookings = bookings;
+        this.bookings = Array.isArray(bookings) ? bookings : [bookings];
         this.rate = Number.parseInt(rate);
         this.discount = Number.parseInt(discount);
     }
@@ -111,6 +111,10 @@ class Room {
             data.discount
         );
     };
+
+    get toJson(){
+        return {name: this.name, bookings: this.bookings, rate: this.rate, discount: this.discount};
+    }
 
 }
 

@@ -17,7 +17,7 @@ class Booking {
      * @param {number} discount 
      * @param {Object} room 
      */
-    constructor(name, email, checkIn, checkOut, discount, room) {
+    constructor(name ='new booking', email = 'email@example.com', checkIn = '2023-01-01', checkOut = '2024-12-12', discount = 10, room={}) {
         this.name = name;
         this.email = email;
         this.checkIn = new Date(checkIn);
@@ -65,7 +65,7 @@ class Booking {
     }
 
     static create = (id, bookingsData) => {
-        const booking = bookingsData.find(b => b.id === id); // Busca por el id correcto
+        const booking = bookingsData.find(b => b.id === id)
         if (!booking) {
             throw new Error(`Booking with ID ${id} not found in bookingsData`);
         }
@@ -73,10 +73,10 @@ class Booking {
         return new Booking(
             booking.name,
             booking.email,
-            new Date(booking.checkIn),  // Asegúrate de convertir checkIn a Date
-            new Date(booking.checkOut), // Asegúrate de convertir checkOut a Date
+            new Date(booking.checkIn),  
+            new Date(booking.checkOut),
             Number.parseInt(booking.discount),
-            createRoomJson(booking.room[0]) // Verifica que el room también esté bien inicializado
+            createRoomJson(booking.room[0])
         );
     };
 }
