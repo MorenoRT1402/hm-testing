@@ -41,6 +41,7 @@ class Booking {
      * @returns {number}
      */
     get fee() {
+        if(this.discount < 0 || this.discount > 100) throw new Error(errorMessages.percentOutOfRange);
         return getFee(this.room.rate, this.room.discount, this.discount);
     }
 

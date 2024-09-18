@@ -11,7 +11,7 @@ class Room {
      * @param {number} rate - Standard price per night (in cents).
      * @param {number} discount - discount (in percent).
      */
-    constructor(name = 'room', bookings = [], rate = 200, discount = 25) {
+    constructor(name = 'room', bookings = [], rate = 100, discount = 25) {
         this.name = name;
         this.bookings = Array.isArray(bookings) ? bookings : [bookings];
         this.rate = Number.parseInt(rate);
@@ -36,10 +36,10 @@ class Room {
     occupancyPercentage(start, end) {
         const startDate = new Date(start);
         const endDate = new Date(end);
-        if (this.bookings.length < 1) return 0;
         datesValidation(startDate, endDate);
+        if (this.bookings.length < 1) return 0;
 
-        let occupiedDays = 0;
+        let occupiedTime = 0;
 
         this.bookings.forEach(booking => {
             // Check if the reservation overlaps with the given date range. Max and min for smallest range
@@ -47,13 +47,11 @@ class Room {
             const overlapEnd = Math.min(booking.checkOut, endDate);
 
             // If the dates overlap, we calculate the busy days
-            if (overlapStart <= overlapEnd) {
-                occupiedDays += Math.ceil(overlapEnd - overlapStart);
-            }
+            occupiedTime += Math.max(overlapEnd - overlapStart, 0);
 
         });
-        const totalDaysInRange = endDate - startDate;
-        const occupancyPercentage = (occupiedDays / totalDaysInRange) * 100;
+        const totalTimeInRange = Math.max(endDate - startDate, 0);
+        const occupancyPercentage = (occupiedTime / totalTimeInRange) * 100;
 
         return Math.min(100, occupancyPercentage);
     }

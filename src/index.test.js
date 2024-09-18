@@ -50,13 +50,17 @@ describe('Room Class Tests', () => {
         });
 
         test('should calculate occupancy percentage correctly', () => {
+            const middleDate = startDate.getTime() + (endDate.getTime() - startDate.getTime()) / 2;
             const ceroOccBooking = new Booking('cero occupancy', 'cero@occupancy.booking', '2023-01-01', '2023-12-12');
             const ceroOccBookingRoom = new Room('room with 0 occ', ceroOccBooking);
             expect(ceroOccBookingRoom.occupancyPercentage(startDate, endDate)).toBeCloseTo(0);
             const fullOccBooking = new Booking('full occ', 'full@occ.booking', startDate, endDate);
             const fullOccBookingRoom = new Room('full Occ Room', fullOccBooking);
             expect(fullOccBookingRoom.occupancyPercentage(startDate, endDate)).toBeCloseTo(100);
-            const midOccRoom = new Room('mid occ room', [ceroOccBooking, fullOccBooking]);
+            const totalFullOccRoom = new Room('full occ thanks to one of booking', [ceroOccBooking, fullOccBooking]);
+            expect(totalFullOccRoom.occupancyPercentage(startDate, endDate)).toBeCloseTo(100);
+            const midOB = new Booking('mid occ booking', 'mid@occ.booking', middleDate, endDate);
+            const midOccRoom = new Room('mid occ room', [midOB]);
             expect(midOccRoom.occupancyPercentage(startDate, endDate)).toBeCloseTo(50);
         });
     });
@@ -99,14 +103,14 @@ describe('Booking Class Tests', () => {
         test('should return error if out of range', () => {
             const chIn = '2023-01-01';
             const chOut = '2024-10-10';
-            const errorMessage = 'Out of range. must be beetween 0 & 100';
+            const errorMessage = errorMessages.percentOutOfRange;
             const negativeDiscountBooking = new Booking('negative discount', 'i@pay.you', chIn, chOut, -10);
             expect(() => negativeDiscountBooking.fee).toThrow(errorMessage);
             const imposibleDiscount = new Booking('more than 100% discount', 'work@like.ong', chIn, chOut, 120);
             expect(() => imposibleDiscount.fee).toThrow(errorMessage);
         });
         test('should return the fee', () => {
-            const rate = 200;
+            const rate = 100;
             const chIn = '2023-01-01';
             const chOut = '2024-12-12';
             const ceroDR = new Room('cero discount', [], rate, 0);
